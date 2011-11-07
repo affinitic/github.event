@@ -6,5 +6,5 @@ def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
     config = Configurator(root_factory=Root, settings=settings)
-    config.scan('views')
+    config.scan('.views')
     return config.make_wsgi_app()
