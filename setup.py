@@ -6,7 +6,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.txt')).read()
 CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
-requires = ['pyramid', 'pyramid_debugtoolbar']
+requires = ['pyramid', 'github']
 
 setup(name='github.event',
       version='0.0',
@@ -34,5 +34,9 @@ setup(name='github.event',
       entry_points="""\
       [paste.app_factory]
       main = githubevent:main
+      [console_scripts]
+      listHooks = githubevent.scripts.listHooks:main
+      addHook = githubevent.scripts.addHook:main
+      testHook = githubevent.scripts.testHook:main
       """,
       paster_plugins=['pyramid'])
