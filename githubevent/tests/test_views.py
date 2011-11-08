@@ -1,6 +1,8 @@
 import unittest
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid import testing
+from ..events import PullRequest
+from githubevent.testing import DummyGitHubPullRequest, DummyGitHubRequest
 
 
 class ViewTests(unittest.TestCase):
@@ -12,13 +14,21 @@ class ViewTests(unittest.TestCase):
 
     def test_unknown_event_type(self):
         from githubevent.views import githubevent
-        request = testing.DummyRequest(headers={'Content-Type': 'application/json'})
+        request = DummyGitHubRequest()
         with self.assertRaises(HTTPNotFound):
             githubevent(request)
 
     def test_known_event_type(self):
         from githubevent.views import githubevent
-        request = testing.DummyRequest(headers={'X-Github-Event': 'pull_request',
-                                                'Content-Type': 'application/json'})
+        request = DummyGitHubPullRequest()
         info = githubevent(request)
         self.assertEqual(info, {})
+
+    def test_view_subscriber(self):
+        L = self.config.testing_add_subscriber(PullRequest)
+        self.assertEqual(len(L), 0)
+        request = DummyGitHubPullRequest()
+        request.registry = self.config.registry
+        from githubevent.views import githubevent
+        githubevent(request)
+        self.assertEqual(len(L), 1)
