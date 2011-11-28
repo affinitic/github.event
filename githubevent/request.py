@@ -45,8 +45,12 @@ class GitHubPullRequest(Request, BaseGitHubPullRequest):
     pass
 
 
-class GitHubPushRequest(Request, BaseGitHubRequest):
+class GitHubPushRequest(Request):
     event = 'push'
+
+    @reify
+    def json_body(self):
+        return json.loads(self.POST.get('payload'))
 
 
 REQUESTS = {'pull_request': GitHubPullRequest,
@@ -54,6 +58,6 @@ REQUESTS = {'pull_request': GitHubPullRequest,
 
 
 def gitHubRequestFactory(env):
-    event = env.get('X-Github-Event')
+    event = env.get('HTTP_X_GITHUB_EVENT')
     requestClass = REQUESTS.get(event, GitHubRequest)
     return requestClass(env)
