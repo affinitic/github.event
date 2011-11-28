@@ -15,3 +15,8 @@ class IPullRequest(GitHubRequest):
     """
     An event type that is a Pull request
     """
+
+class IPush(GitHubRequest):
+    """
+    An event type that is a Push
+    """

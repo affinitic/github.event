@@ -6,6 +6,7 @@ Licensed under the GPL license, see LICENCE.txt for more details.
 """
 from zope.interface import implements
 from .interfaces import IPullRequest
+from .interfaces import IPush
 
 
 class GitHubRequest(object):
@@ -19,3 +20,10 @@ class PullRequest(GitHubRequest):
     A pull request
     """
     implements(IPullRequest)
+
+
+class Push(GitHubRequest):
+    """
+    A github push
+    """
+    implements(IPush)

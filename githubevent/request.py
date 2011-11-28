@@ -45,7 +45,12 @@ class GitHubPullRequest(Request, BaseGitHubPullRequest):
     pass
 
 
-REQUESTS = {'pull_request': GitHubPullRequest}
+class GitHubPushRequest(Request, BaseGitHubRequest):
+    event = 'push'
+
+
+REQUESTS = {'pull_request': GitHubPullRequest,
+            'push': GitHubPushRequest,}
 
 
 def gitHubRequestFactory(env):
