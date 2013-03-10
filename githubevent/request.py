@@ -6,23 +6,10 @@ Licensed under the GPL license, see LICENCE.txt for more details.
 """
 import json
 from pyramid.decorator import reify
-from pyramid.request import Request
+from git.event.request import GitPullRequest, GitPushRequest, GitRequest
 
 
-class BaseGitHubRequest(object):
-    event = None
-
-    @reify
-    def json_body(self):
-        return json.loads(self.body, encoding=self.charset)
-
-
-class GitHubRequest(Request, BaseGitHubRequest):
-    pass
-
-
-class BaseGitHubPullRequest(object):
-    event = 'pull_request'
+class GitHubPullRequest(GitPullRequest):
 
     @property
     def base_repo_url(self):
@@ -41,12 +28,7 @@ class BaseGitHubPullRequest(object):
         return self.json_body['pull_request']['head']['repo']['name']
 
 
-class GitHubPullRequest(Request, BaseGitHubPullRequest):
-    pass
-
-
-class GitHubPushRequest(Request):
-    event = 'push'
+class GitHubPushRequest(GitPushRequest):
 
     @reify
     def json_body(self):
@@ -54,10 +36,11 @@ class GitHubPushRequest(Request):
 
 
 REQUESTS = {'pull_request': GitHubPullRequest,
-            'push': GitHubPushRequest,}
+            'push': GitHubPushRequest}
 
 
 def gitHubRequestFactory(env):
     event = env.get('HTTP_X_GITHUB_EVENT')
-    requestClass = REQUESTS.get(event, GitHubRequest)
-    return requestClass(env)
+    if event:
+        requestClass = REQUESTS.get(event, GitRequest)
+        return requestClass(env)

@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import unittest
 from pyramid import testing
-from githubevent.request import gitHubRequestFactory, GitHubRequest, GitHubPullRequest
+from git.event.request import GitRequest
+from githubevent.request import gitHubRequestFactory, GitHubPullRequest
 
 
 class RequestFactoryTests(unittest.TestCase):
@@ -20,10 +21,9 @@ class RequestFactoryTests(unittest.TestCase):
 
     def testUnknownGitHubEvent(self):
         request = gitHubRequestFactory({'HTTP_X_GITHUB_EVENT': 'foo'})
-        self.assertEqual(request.__class__, GitHubRequest)
+        self.assertEqual(request.__class__, GitRequest)
         self.assertEqual(request.event, None)
 
     def testEmptyGitHubEvent(self):
         request = gitHubRequestFactory({})
-        self.assertEqual(request.__class__, GitHubRequest)
-        self.assertEqual(request.event, None)
+        self.assertEqual(request, None)

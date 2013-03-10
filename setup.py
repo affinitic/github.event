@@ -6,18 +6,17 @@ here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.txt')).read()
 CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
-requires = ['pyramid']
+requires = ['pyramid', 'git.event']
 
 setup(name='github.event',
       version='0.0',
       description='github.event',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
-        "Programming Language :: Python",
-        "Framework :: Pylons",
-        "Topic :: Internet :: WWW/HTTP",
-        "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
-        ],
+          "Programming Language :: Python",
+          "Framework :: Pylons",
+          "Topic :: Internet :: WWW/HTTP",
+          "Topic :: Internet :: WWW/HTTP :: WSGI :: Application"],
       author='',
       author_email='',
       url='',
@@ -29,8 +28,7 @@ setup(name='github.event',
       tests_require=requires,
       test_suite="githubevent",
       extras_require={
-          'test': ['unittest2']
-      },
+          'test': ['unittest2']},
       entry_points="""\
       [paste.app_factory]
       main = githubevent:main

@@ -1,5 +1,4 @@
-from .events import PullRequest
-from .events import Push
+from git.event.event import PushEvent, PullRequestEvent
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.view import view_config
 
@@ -8,9 +7,9 @@ from pyramid.view import view_config
 def githubevent(request):
     notify = request.registry.notify
     if request.event == 'pull_request':
-        notify(PullRequest(request))
+        notify(PullRequestEvent(request))
         return {}
     if request.event == 'push':
-        notify(Push(request))
+        notify(PushEvent(request))
         return {}
     raise HTTPNotFound()

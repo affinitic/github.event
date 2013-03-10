@@ -5,17 +5,17 @@ github.evetn
 Licensed under the GPL license, see LICENCE.txt for more details.
 """
 from pyramid.testing import DummyRequest
-from githubevent.request import BaseGitHubRequest, BaseGitHubPullRequest
+from .request import GitHubPullRequest
 
 
-class DummyGitHubRequest(DummyRequest, BaseGitHubRequest):
+class DummyGitHubRequest(DummyRequest):
 
     def __init__(self, params=None, environ=None, headers=None, path='/',
                  cookies=None, post=None, **kw):
-        DummyRequest.__init__(self, params, environ, headers, path,
-                 cookies, post, **kw)
+        self.environ = {}
+        self.headers = {}
         self.headers['Content-Type'] = 'application/json'
 
 
-class DummyGitHubPullRequest(BaseGitHubPullRequest, DummyGitHubRequest):
+class DummyGitHubPullRequest(DummyGitHubRequest, GitHubPullRequest):
     pass
