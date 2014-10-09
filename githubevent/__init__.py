@@ -7,10 +7,11 @@ def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
     config = Configurator(root_factory=Root, settings=settings)
-    includeme(config)
+    includegithubevent(config)
     return config.make_wsgi_app()
 
 
-def includeme(config):
+def includegithubevent(config):
     config.set_request_factory(gitHubRequestFactory)
-    config.scan('.views')
+    config.add_route('githubevent', '/githubevent')
+    config.scan('githubevent.views')

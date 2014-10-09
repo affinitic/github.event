@@ -26,8 +26,8 @@ def getOptions():
 
 def main():
     options = getOptions()
-    from github import github
-    gh = github.GitHub(options.user, options.password)
+    from pygithub3 import Github
+    gh = Github(login=options.user, password=options.password)
     gh.repos.testHook(options.repouser, options.repo, options.hookid)
 
 if __name__ == '__main__':

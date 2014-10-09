@@ -6,7 +6,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.txt')).read()
 CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
-requires = ['pyramid', 'git.event']
+requires = ['pyramid', 'git.event', 'github', 'pygithub3']
 
 setup(name='github.event',
       version='0.0',

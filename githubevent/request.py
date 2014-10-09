@@ -44,3 +44,5 @@ def gitHubRequestFactory(env):
     if event:
         requestClass = REQUESTS.get(event, GitRequest)
         return requestClass(env)
+    else:
+        raise NotImplementedError
