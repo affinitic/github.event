@@ -6,7 +6,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.txt')).read()
 CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
-requires = ['pyramid', 'git.event', 'github', 'pygithub3']
+requires = ['pyramid', 'git.event', 'pygithub', 'argh']
 
 setup(name='github.event',
       version='0.0',
@@ -33,7 +33,7 @@ setup(name='github.event',
       [paste.app_factory]
       main = githubevent:main
       [console_scripts]
-      listHooks = githubevent.scripts.listHooks:main
+      listHooks = githubevent.scripts.listHooks:main [listHooks]
       addHook = githubevent.scripts.addHook:main
       testHook = githubevent.scripts.testHook:main
       """,
