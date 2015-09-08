@@ -14,16 +14,16 @@ class ViewTests(unittest.TestCase):
         testing.tearDown()
 
     def test_unknown_event_type(self):
-        from githubevent.views import githubevent
+        from githubevent.views import githubeventview
         request = DummyGitHubRequest()
         request.event = None
         with self.assertRaises(HTTPNotFound):
-            githubevent(request)
+            githubeventview(request)
 
     def test_known_event_type(self):
-        from githubevent.views import githubevent
+        from githubevent.views import githubeventview
         request = DummyGitHubPullRequest()
-        info = githubevent(request)
+        info = githubeventview(request)
         self.assertEqual(info, {})
 
     def test_view_subscriber(self):
@@ -31,6 +31,6 @@ class ViewTests(unittest.TestCase):
         self.assertEqual(len(L), 0)
         request = DummyGitHubPullRequest()
         request.registry = self.config.registry
-        from githubevent.views import githubevent
-        githubevent(request)
+        from githubevent.views import githubeventview
+        githubeventview(request)
         self.assertEqual(len(L), 1)
