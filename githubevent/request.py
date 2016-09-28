@@ -74,3 +74,7 @@ class GitHubCommit(object):
     @property
     def url(self):
         return self.commit_body['url']
+
+    @property
+    def author_email(self):
+        return self.commit_body['author']['email']
