@@ -4,7 +4,7 @@ github.event
 
 Licensed under the GPL license, see LICENCE.txt for more details.
 """
-from git.event.request import GitPullRequest, GitPushRequest, GitRequest
+from git.event.request import GitPullRequest, GitPushRequest
 
 
 class GitHubPullRequest(GitPullRequest):
@@ -74,16 +74,3 @@ class GitHubCommit(object):
     @property
     def url(self):
         return self.commit_body['url']
-
-
-REQUESTS = {'pull_request': GitHubPullRequest,
-            'push': GitHubPushRequest}
-
-
-def gitHubRequestFactory(env):
-    event = env.get('HTTP_X_GITHUB_EVENT')
-    if event:
-        requestClass = REQUESTS.get(event, GitRequest)
-        return requestClass(env)
-    else:
-        raise NotImplementedError

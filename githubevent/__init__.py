@@ -1,6 +1,5 @@
 from pyramid.config import Configurator
 from githubevent.resources import Root
-from githubevent.request import gitHubRequestFactory
 
 
 def main(global_config, **settings):
@@ -12,6 +11,5 @@ def main(global_config, **settings):
 
 
 def includegithubevent(config):
-    config.set_request_factory(gitHubRequestFactory)
     config.add_route('githubevent', '/githubevent')
     config.scan('githubevent.views')
