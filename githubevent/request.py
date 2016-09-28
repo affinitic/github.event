@@ -44,6 +44,10 @@ class GitHubPushRequest(GitPushRequest):
     def author(self):
         return self.json_body['pusher']['name']
 
+    @property
+    def author_email(self):
+        return self.json_body['pusher']['email']
+
 
 class GitHubCommit(object):
 
@@ -74,7 +78,3 @@ class GitHubCommit(object):
     @property
     def url(self):
         return self.commit_body['url']
-
-    @property
-    def author_email(self):
-        return self.commit_body['author']['email']
