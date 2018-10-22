@@ -1,0 +1,132 @@
+---
+repos:
+  - repo: https://github.com/chriskuehl/puppet-pre-commit-hooks.git
+    rev: v2.0.1
+    hooks:
+      - id: puppet-validate
+        stages: [commit, push]
+      - id: erb-validate
+        stages: [commit, push]
+      - id: epp-validate
+        stages: [commit, push]
+      - id: puppet-lint
+        stages: [commit, push]
+  - repo: git://github.com/pre-commit/pre-commit-hooks
+    rev: v1.2.3
+    hooks:
+      - id: trailing-whitespace
+        stages: [commit, push]
+      - id: check-json
+        stages: [commit, push]
+      - id: flake8
+        stages: [commit, push]
+      - id: check-yaml
+        stages: [commit, push]
+      - id: check-xml
+        stages: [commit, push]
+      - id: check-merge-conflict
+        stages: [commit, push]
+      - id: debug-statements
+        stages: [commit, push]
+      - id: fix-encoding-pragma
+        stages: [commit, push]
+      - id: check-symlinks
+        stages: [commit, push]
+      - id: debug-statements
+        stages: [commit, push]
+  - repo: https://github.com/jumanjihouse/pre-commit-hooks.git
+    rev: 1.6.0
+    hooks:
+      - id: shellcheck
+        stages: [commit, push]
+      - id: shfmt
+        stages: [commit, push]
+  - repo: https://github.com/pre-commit/mirrors-csslint.git
+    rev: 845a4fd9e41e6227b237ddd6054c33b5a08f9fb0
+    hooks:
+      - id: csslint
+        stages: [commit, push]
+  - repo: https://github.com/asottile/yesqa
+    rev: f657d64b0ca01f7f44ee0006c2990af988139c28
+    hooks:
+      - id: yesqa
+        stages: [commit, push]
+  - repo: https://github.com/adrienverge/yamllint
+    rev: 506e066410052c42da36c237b8ba3c661448c86b
+    hooks:
+      - id: yamllint
+        stages: [commit, push]
+  # -   repo: https://github.com/Lucas-C/pre-commit-hooks-nodejs
+  #    rev: 8535cb046711121d3591fa31843e2be3f3a26813
+  #    hooks:
+  #    -   id: dockerfile_lint
+  #        stages: [commit, push]
+  - repo: https://github.com/jorisroovers/gitlint.git
+    rev: e4e627dd5b5f1dbc1168782ea6fd9874242fa41a
+    hooks:
+      - id: gitlint
+        stages: [commit-msg]
+
+  # -   repo: local
+  #    hooks:
+  #    -   id: run-tests
+  #        name: Running local test
+  #        entry: make test
+  #        language: system
+  #        stages: [commit, push]
+
+  - repo: local
+    hooks:
+      - id: run-csslint
+        name: Running CSS Lint
+        entry: bin/code-analysis-csslint
+        language: system
+        stages: [commit, push]
+
+  - repo: local
+    hooks:
+      - id: run-code-analysis-check-manifest
+        name: Running code analysis check manifest
+        entry: bin/code-analysis-check-manifest
+        language: system
+        stages: [commit, push]
+
+  - repo: local
+    hooks:
+      - id: run-analysis-clean-lines
+        name: Running analysis clean lines
+        entry: bin/code-analysis-clean-lines
+        language: system
+        stages: [commit, push]
+
+  - repo: local
+    hooks:
+      - id: run-code-analysis-find-untranslated
+        name: Running analysis clean lines
+        entry: bin/code-analysis-find-untranslated
+        language: system
+        stages: [commit, push]
+
+  - repo: local
+    hooks:
+      - id: run-code-analysis-jscs
+        name: Running code analysis jscs
+        entry: bin/code-analysis-jscs
+        language: system
+        stages: [commit, push]
+
+  - repo: local
+    hooks:
+      - id: run-code-analysis-jshint
+        name: Running code analysis jshint
+        entry: bin/code-analysis-jshint
+        language: system
+        stages: [commit, push]
+
+  - repo: local
+    hooks:
+      - id: run-code-analysis-zptlint
+        name: Running code analysis zptlint
+        entry: bin/code-analysis-zptlint
+        language: system
+        stages: [commit, push]

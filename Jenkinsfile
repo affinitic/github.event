@@ -1,0 +1,4 @@
+@Library('affinitic') _
+
+buildout {
+}
